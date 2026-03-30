@@ -66,12 +66,28 @@ public class ConvidadoDAO {
             Connection conexao = DriverManager.getConnection("jdbc:sqlite:banco_vip.db");
             String sql = "DELETE FROM convidados WHERE id = ?";
             PreparedStatement comando = conexao.prepareStatement(sql);
-            comando.setInt(1, id); // Troca a interrogação pelo ID
+            comando.setInt(1, id);
             comando.execute();
             conexao.close();
             System.out.println(" VIP com ID " + id + " foi DELETADO do banco!");
         } catch (Exception erro) {
             System.out.println(" Erro ao deletar: " + erro.getMessage());
+        }
+    }
+    public void atualizar(int id, Vip vipAtualizado) {
+        try {
+            Connection conexao = DriverManager.getConnection("jdbc:sqlite:banco_vip.db");
+            String sql = "UPDATE convidados SET nome = ?, idade = ?, tipoIngresso = ? WHERE id = ?";
+            PreparedStatement comando = conexao.prepareStatement(sql);
+            comando.setString(1, vipAtualizado.getNome());
+            comando.setInt(2, vipAtualizado.getIdade());
+            comando.setString(3, vipAtualizado.getTipoIngresso());
+            comando.setInt(4, id);
+            comando.execute();
+            conexao.close();
+            System.out.println(" VIP com ID " + id + " foi ATUALIZADO com sucesso!");
+        } catch (Exception erro) {
+            System.out.println(" Erro ao atualizar no banco: " + erro.getMessage());
         }
     }
 }
