@@ -4,15 +4,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
-@Entity // 👈 Magia 1: Avisa o Spring que isso é uma tabela do banco
-@Table(name = "convidados") // 👈 Mantemos o nome da tabela que você já usava
+@Entity
+@Table(name = "convidados")
 public class Vip {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 👈 Magia 3: O Banco gera o ID automático (AUTOINCREMENT)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotBlank(message = "O nome do VIP é obrigatório!")
     private String nome;
+
+    @Min(value = 18, message = "O VIP deve ter pelo menos 18 anos!")
     private int idade;
+
+    @NotBlank(message = "O tipo de ingresso não pode ficar em branco!")
     private String tipoIngresso;
     public Vip() {}
     public Vip(int id, String nome, int idade, String tipoIngresso) {
@@ -28,4 +36,5 @@ public class Vip {
     public void setId(int id) {
     this.id = id;
     }
+
 }

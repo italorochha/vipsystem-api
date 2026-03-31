@@ -1,6 +1,6 @@
 package com.italo.vipsystem_web;
 import java.util.List;
-
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class BemVindoController {
         return repository.findAll();
     }
     @PostMapping("/vips")
-    public String cadastrarNovoVip(@RequestBody Vip novoVip) {
+    public String cadastrarNovoVip(@Valid @RequestBody Vip novoVip) {
         repository.save(novoVip);
         return "VIP Cadastrado com sucesso pelo JPA!";
     }
@@ -33,7 +33,7 @@ public class BemVindoController {
     }
 
     @PutMapping("/vips/{id}")
-    public String atualizarVip(@PathVariable int id, @RequestBody Vip vipAtualizado) {
+    public String atualizarVip(@PathVariable int id, @Valid @RequestBody Vip vipAtualizado) {
         vipAtualizado.setId(id);
         repository.save(vipAtualizado);
         return "Servidor avisa: Dados do VIP " + id + " atualizados!";
